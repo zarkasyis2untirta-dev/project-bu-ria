@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edukasi Interaktif Teks Deskripsi SMP</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: { 800: '#065f46', 900: '#064e3b', 950: '#022c22' },
+                        teal: { 400: '#2dd4bf', 500: '#14b8a6', 600: '#0d9488' },
+                        amber: { 400: '#fbbf24', 500: '#f59e0b' }
+                    },
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Firebase SDKs (Compat version for reliable standalone single-file usage) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #022c22;
+            color: #f0fdf4;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(20, 184, 166, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.1) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+        .glass-panel {
+            background: rgba(6, 78, 59, 0.45);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(45, 212, 191, 0.2);
+        }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #34d399 0%, #2dd4bf 50%, #fbbf24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #022c22; }
+        ::-webkit-scrollbar-thumb { background: #0d9488; border-radius: 4px; }
+        .active-nav {
+            background: linear-gradient(135deg, #0d9488 0%, #065f46 100%);
+            border-color: #2dd4bf !important;
+            box-shadow: 0 0 20px rgba(45, 212, 191, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-teal-500 selection:text-white">
+
+    <!-- Navbar Header -->
+    <header class="border-b border-teal-900/50 bg-emerald-950/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="p-2 bg-teal-500/10 rounded-xl border border-teal-500/20 text-teal-400">
+                    <i data-lucide="book-open-check" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <span class="font-extrabold text-lg sm:text-xl tracking-tight text-gradient block">
+                        Bahasa Indonesia SMP
+                    </span>
+                    <span class="text-[10px] sm:text-xs text-teal-300/70 font-medium tracking-wider uppercase">
+                        Modul Komprehensif Teks Deskripsi
+                    </span>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3" id="student-badge-container" style="display: none;">
+                <div class="text-xs px-3 py-1.5 rounded-full bg-teal-950/80 border border-teal-500/40 text-teal-200 flex items-center gap-2">
+                    <i data-lucide="user-check" class="w-3.5 h-3.5 text-amber-400"></i>
+                    <span id="nav-student-info" class="font-semibold"></span>
+                </div>
+                <button onclick="openAdminModal()" class="px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-teal-300 border border-teal-500/30 text-xs font-bold transition flex items-center gap-1.5">
+                    <i data-lucide="shield" class="w-3.5 h-3.5 text-amber-400"></i>
+                    <span>Admin</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+
+        <!-- STAGE 1: REGISTRATION & PRE-TEST -->
+        <section id="stage-pretest" class="max-w-3xl mx-auto">
+            <div class="glass-panel p-6 sm:p-10 rounded-3xl shadow-2xl border border-teal-500/30">
+                <div class="text-center mb-8">
+                    <span class="px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 mb-3">
+                        <i data-lucide="clipboard-list" class="w-4 h-4"></i>
+                        Tahap 1: Validasi Identitas & Pre-Test Wajib
+                    </span>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-white mb-2">
+                        Selamat Datang di Portal Belajar Teks Deskripsi
+                    </h1>
+                    <p class="text-xs sm:text-sm text-emerald-100/80">
+                        Silakan lengkapi identitas Anda dan selesaikan 10 soal Pre-Test pilihan ganda di bawah ini sebelum dapat membuka menu materi pembelajaran lengkap dan video interaktif.
+                    </p>
+                </div>
+
+                <!-- Registration Form -->
+                <div id="reg-form-box" class="space-y-4 mb-8 bg-emerald-950/60 p-6 rounded-2xl border border-teal-800/60">
+                    <h3 class="text-sm font-bold text-teal-300 uppercase tracking-wider flex items-center gap-2">
+                        <i data-lucide="user-pen" class="w-4 h-4 text-amber-400"></i>
+                        Identitas Murid
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-emerald-200 mb-1">Nama Lengkap:</label>
+                            <input type="text" id="input-name" placeholder="Contoh: Budi Santoso" class="w-full bg-emerald-900/40 border border-teal-500/30 rounded-xl px-4 py-2.5 text-sm text-white placeholder-emerald-400/50 focus:outline-none focus:border-teal-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-emerald-200 mb-1">NIM / NIS:</label>
+                            <input type="text" id="input-nim" placeholder="Contoh: 12345678" class="w-full bg-emerald-900/40 border border-teal-500/30 rounded-xl px-4 py-2.5 text-sm text-white placeholder-emerald-400/50 focus:outline-none focus:border-teal-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-emerald-200 mb-1">Kelas:</label>
+                            <input type="text" id="input-class" placeholder="Contoh: VII-A" class="w-full bg-emerald-900/40 border border-teal-500/30 rounded-xl px-4 py-2.5 text-sm text-white placeholder-emerald-400/50 focus:outline-none focus:border-teal-400">
+                        </div>
+                    </div>
+                    <div id="reg-error" class="text-xs text-red-400 font-medium hidden flex items-center gap-1 mt-2">
+                        <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> Mohon lengkapi Nama, NIM/NIS, dan Kelas terlebih dahulu!
+                    </div>
+                    <button onclick="startPreTest()" class="w-full py-3 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-bold rounded-xl shadow-lg transition flex items-center justify-center gap-2 mt-4">
+                        <span>Lanjut ke Soal Pre-Test (10 Soal)</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Pre-Test Quiz Container (Hidden initially) -->
+                <div id="pretest-quiz-box" class="hidden space-y-6">
+                    <div class="flex items-center justify-between border-b border-teal-800 pb-3">
+                        <span class="text-xs font-bold text-teal-300 uppercase">Daftar Pertanyaan Pre-Test</span>
+                        <span id="pretest-counter" class="text-xs font-bold text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">1 dari 10 Soal</span>
+                    </div>
+                    
+                    <div id="pretest-question-container" class="glass-card p-6 rounded-2xl border border-teal-500/30">
+                        <!-- Dynamic Question Rendered Here -->
+                    </div>
+
+                    <div class="flex justify-between items-center pt-2">
+                        <button onclick="prevPreTestQ()" id="pretest-prev-btn" class="px-4 py-2 rounded-xl bg-slate-900 text-slate-400 text-xs font-semibold border border-slate-700 disabled:opacity-40" disabled>Sebelumnya</button>
+                        <button onclick="nextPreTestQ()" id="pretest-next-btn" class="px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold transition flex items-center gap-1.5">
+                            <span>Selanjutnya</span>
+                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- STAGE 2: MAIN DASHBOARD & MATERIAL MODULES (Hidden until Pre-Test completed) -->
+        <section id="stage-main" class="hidden space-y-8">
+            
+            <!-- Student Header Welcome Banner -->
+            <div class="glass-panel p-6 rounded-3xl border border-teal-500/30 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center space-x-4">
+                    <div class="p-3 bg-teal-500/20 rounded-2xl border border-teal-500/30 text-teal-300">
+                        <i data-lucide="graduation-cap" class="w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-white" id="welcome-student-name">Halo, Siswa!</h2>
+                        <p class="text-xs sm:text-sm text-emerald-200" id="welcome-student-meta">NIM/NIS: - | Kelas: -</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="text-right hidden sm:block">
+                        <span class="text-[10px] text-teal-300 block uppercase font-semibold">Skor Pre-Test Anda</span>
+                        <span id="display-pretest-score" class="text-lg font-bold text-amber-400">0 / 100</span>
+                    </div>
+                    <button onclick="openLeaderboard()" class="px-4 py-2.5 rounded-xl bg-teal-600/80 hover:bg-teal-600 text-white text-xs font-bold transition flex items-center gap-2 border border-teal-400/40 shadow-lg">
+                        <i data-lucide="trophy" class="w-4 h-4 text-amber-300"></i>
+                        <span>Leaderboard Kelas</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs for Modules -->
+            <div class="flex justify-center overflow-x-auto py-2">
+                <div class="glass-panel p-1.5 rounded-2xl border border-teal-500/30 inline-flex gap-1.5 min-w-max">
+                    <button onclick="switchTab('materi')" id="navtab-materi" class="active-nav px-4 py-2 rounded-xl text-xs font-bold transition text-white flex items-center gap-2 border border-transparent">
+                        <i data-lucide="book-open" class="w-4 h-4"></i> Materi Lengkap
+                    </button>
+                    <button onclick="switchTab('video')" id="navtab-video" class="px-4 py-2 rounded-xl text-xs font-bold transition text-emerald-200 hover:bg-teal-900/40 flex items-center gap-2 border border-transparent">
+                        <i data-lucide="video" class="w-4 h-4"></i> Video Interaktif
+                    </button>
+                    <button onclick="switchTab('posttest')" id="navtab-posttest" class="px-4 py-2 rounded-xl text-xs font-bold transition text-emerald-200 hover:bg-teal-900/40 flex items-center gap-2 border border-transparent">
+                        <i data-lucide="award" class="w-4 h-4"></i> Post-Test (10 Soal)
+                    </button>
+                </div>
+            </div>
+
+            <!-- TAB CONTENT 1: MATERI LENGKAP TEKS DESKRIPSI SMP -->
+            <div id="tabcontent-materi" class="space-y-6">
+                <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-teal-500/30 space-y-6">
+                    
+                    <div class="border-b border-teal-800 pb-4">
+                        <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Materi Utama Kurikulum SMP</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Struktur Akademis Teks Deskripsi</h2>
+                        <p class="text-xs sm:text-sm text-emerald-200 mt-1">Panduan lengkap materi bahasa Indonesia SMP mencakup pengertian, tujuan, ciri, struktur, kaidah kebahasaan, hingga analisis contoh teks.</p>
+                    </div>
+
+                    <!-- Accordion / Section A -->
+                    <div class="space-y-4">
+                        <div class="glass-card p-5 rounded-2xl border border-teal-500/20">
+                            <h3 class="text-base font-bold text-teal-300 flex items-center gap-2 mb-2">
+                                <span class="w-6 h-6 rounded-lg bg-teal-500/20 text-teal-300 flex items-center justify-center text-xs">A</span>
+                                Pengertian Teks Deskripsi
+                            </h3>
+                            <p class="text-xs sm:text-sm text-emerald-100 leading-relaxed mb-3">
+                                Teks deskripsi merupakan salah satu jenis teks dalam pembelajaran Bahasa Indonesia yang bertujuan menggambarkan suatu objek secara terperinci sehingga pembaca memperoleh gambaran yang jelas mengenai objek tersebut.
+                            </p>
+                            <div class="bg-emerald-950/80 p-3.5 rounded-xl border border-teal-800 text-xs text-emerald-200 space-y-1">
+                                <p><strong>Contoh Kalimat Umum:</strong> Sekolah saya bersih.</p>
+                                <p><strong>Contoh Kalimat Deskriptif:</strong> Halaman sekolah saya tampak bersih dengan deretan tanaman hijau di sepanjang koridor, lantai yang terawat, serta tempat sampah yang tersedia di setiap sudut halaman.</p>
+                            </div>
+                        </div>
+
+                        <!-- Section B -->
+                        <div class="glass-card p-5 rounded-2xl border border-teal-500/20">
+                            <h3 class="text-base font-bold text-teal-300 flex items-center gap-2 mb-2">
+                                <span class="w-6 h-6 rounded-lg bg-teal-500/20 text-teal-300 flex items-center justify-center text-xs">B</span>
+                                Tujuan Teks Deskripsi
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                                <div class="bg-emerald-950/60 p-3 rounded-xl border border-teal-900">
+                                    <strong class="text-amber-300 block mb-1">1. Menggambarkan Objek Terperinci</strong>
+                                    Menjelaskan karakteristik objek berdasarkan bentuk, ukuran, warna, kondisi, atau bagian-bagiannya.
+                                </div>
+                                <div class="bg-emerald-950/60 p-3 rounded-xl border border-teal-900">
+                                    <strong class="text-amber-300 block mb-1">2. Membentuk Gambaran Mental</strong>
+                                    Membantu pembaca membayangkan objek seolah-olah sedang mengamati objek tersebut secara langsung.
+                                </div>
+                                <div class="bg-emerald-950/60 p-3 rounded-xl border border-teal-900">
+                                    <strong class="text-amber-300 block mb-1">3. Menonjolkan Ciri Khas</strong>
+                                    Menunjukkan karakteristik khusus yang membedakan objek tersebut dari objek lain.
+                                </div>
+                                <div class="bg-emerald-950/60 p-3 rounded-xl border border-teal-900">
+                                    <strong class="text-amber-300 block mb-1">4. Menyampaikan Kesan / Pengalaman</strong>
+                                    Mengungkapkan kesan indrawi dan emosional penulis terhadap objek yang dideskripsikan.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section C -->
+                        <div class="glass-card p-5 rounded-2xl border border-teal-500/20">
+                            <h3 class="text-base font-bold text-teal-300 flex items-center gap-2 mb-2">
+                                <span class="w-6 h-6 rounded-lg bg-teal-500/20 text-teal-300 flex items-center justify-center text-xs">C</span>
+                                Ciri-Ciri Teks Deskripsi
+                            </h3>
+                            <ul class="list-disc list-inside text-xs sm:text-sm text-emerald-100 space-y-1.5 pl-1">
+                                <li><strong>Objek bersifat spesifik:</strong> Berfokus pada objek tertentu, bukan kelompok secara umum.</li>
+                                <li><strong>Informasi terperinci:</strong> Menjelaskan bagian, sifat, kondisi, atau karakteristik objek.</li>
+                                <li><strong>Menggunakan kesan indrawi:</strong> Melibatkan penglihatan, pendengaran, penciuman, pengecapan, dan perabaan.</li>
+                                <li><strong>Kata sifat deskriptif:</strong> Contohnya luas, harum, lembut, teduh, dan jernih.</li>
+                                <li><strong>Kesimpulan subjektif / fakta objektif:</strong> Tergantung pada tujuan dan sudut pandang penulis.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Section D -->
+                        <div class="glass-card p-5 rounded-2xl border border-teal-500/20">
+                            <h3 class="text-base font-bold text-teal-300 flex items-center gap-2 mb-2">
+                                <span class="w-6 h-6 rounded-lg bg-teal-500/20 text-teal-300 flex items-center justify-center text-xs">D</span>
+                                Struktur Teks Deskripsi
+                            </h3>
+                            <div class="space-y-3 text-xs sm:text-sm">
+                                <div class="bg-emerald-950/70 p-3 rounded-xl border border-teal-900">
+                                    <strong class="text-amber-400">1. Identifikasi / Gambaran Umum:</strong> Bagian pembuka yang memperkenalkan nama objek, lokasi, atau gambaran umum.
+                                </div>
+                                <div class="bg-emerald-950/70 p-3 rounded-xl border border-teal-900">
+                                    <strong class="text-amber-400">2. Deskripsi Bagian:</strong> Bagian inti yang merinci bentuk, ukuran, warna, kondisi, suasana, atau ciri khas objek.
+                                </div>
+                                <div class="bg-emerald-950/70 p-3 rounded-xl border border-teal-900">
+                                    <strong class="text-amber-400">3. Penutup / Kesan:</strong> Bagian akhir yang berisi simpulan atau penilaian mengenai objek.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section E -->
+                        <div class="glass-card p-5 rounded-2xl border border-teal-500/20">
+                            <h3 class="text-base font-bold text-teal-300 flex items-center gap-2 mb-2">
+                                <span class="w-6 h-6 rounded-lg bg-teal-500/20 text-teal-300 flex items-center justify-center text-xs">E</span>
+                                Kaidah Kebahasaan Teks Deskripsi
+                            </h3>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs text-emerald-100 border-collapse">
+                                    <thead>
+                                        <tr class="border-b border-teal-800 text-teal-300">
+                                            <th class="p-2.5">Unsur Kebahasaan</th>
+                                            <th class="p-2.5">Fungsi</th>
+                                            <th class="p-2.5">Contoh</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-teal-900/60">
+                                        <tr>
+                                            <td class="p-2.5 font-semibold">Kata benda (Nomina)</td>
+                                            <td class="p-2.5">Menunjukkan objek yang dibahas</td>
+                                            <td class="p-2.5 text-teal-300">sekolah, taman, pohon</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-2.5 font-semibold">Kata sifat (Adjektiva)</td>
+                                            <td class="p-2.5">Menjelaskan sifat atau keadaan</td>
+                                            <td class="p-2.5 text-teal-300">rindang, bersih, luas</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-2.5 font-semibold">Kata khusus</td>
+                                            <td class="p-2.5">Memperjelas objek secara spesifik</td>
+                                            <td class="p-2.5 text-teal-300">mawar merah, bangku kayu</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-2.5 font-semibold">Kata kerja indrawi</td>
+                                            <td class="p-2.5">Menggambarkan pengalaman indra</td>
+                                            <td class="p-2.5 text-teal-300">melihat, mendengar, mencium</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-2.5 font-semibold">Kalimat perincian</td>
+                                            <td class="p-2.5">Menjelaskan detail objek</td>
+                                            <td class="p-2.5 text-teal-300">Daunnya lebar, hijau, mengilap.</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-2.5 font-semibold">Majas</td>
+                                            <td class="p-2.5">Memperkuat gambaran atau kesan</td>
+                                            <td class="p-2.5 text-teal-300">Angin berbisik di pepohonan.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Section F, G, H, I, J, K (Summary Cards) -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="glass-card p-4 rounded-2xl border border-teal-500/20">
+                                <h4 class="font-bold text-amber-400 text-sm mb-1">F. Jenis-Jenis Teks Deskripsi</h4>
+                                <p class="text-xs text-emerald-100">Berdasarkan Objek (orang, tempat, benda/hewan, suasana/budaya) dan Berdasarkan Penggambaran (objektif, subjektif, spasial).</p>
+                            </div>
+                            <div class="glass-card p-4 rounded-2xl border border-teal-500/20">
+                                <h4 class="font-bold text-amber-400 text-sm mb-1">G. Langkah Menulis</h4>
+                                <p class="text-xs text-emerald-100">1. Tentukan Objek -> 2. Pengamatan -> 3. Catat Hasil -> 4. Buat Kerangka -> 5. Kembangkan -> 6. Sunting Teks.</p>
+                            </div>
+                            <div class="glass-card p-4 rounded-2xl border border-teal-500/20">
+                                <h4 class="font-bold text-amber-400 text-sm mb-1">H. Contoh Teks & Analisis</h4>
+                                <p class="text-xs text-emerald-100">Contoh teks "Taman Sekolah yang Asri" yang memuat paragraf Identifikasi, Deskripsi Bagian, dan Penutup.</p>
+                            </div>
+                            <div class="glass-card p-4 rounded-2xl border border-teal-500/20">
+                                <h4 class="font-bold text-amber-400 text-sm mb-1">I, J & K. Perbedaan, Kesalahan & Penilaian</h4>
+                                <p class="text-xs text-emerald-100">Menghindari deskripsi terlalu umum, pengulangan kata berlebihan, serta memperhatikan rubrik penilaian isi, struktur, dan kebahasaan.</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- TAB CONTENT 2: VIDEO INTERAKTIF YOUTUBE -->
+            <div id="tabcontent-video" class="hidden space-y-6">
+                <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-teal-500/30 space-y-6">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-teal-800 pb-4">
+                        <div>
+                            <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Multimedia Pembelajaran</span>
+                            <h2 class="text-xl sm:text-2xl font-extrabold text-white mt-1">Video Pembelajaran YouTube Interaktif</h2>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <input type="text" id="youtube-url-input" placeholder="Masukkan URL / Embed YouTube..." class="bg-emerald-950/80 border border-teal-500/30 rounded-xl px-3 py-2 text-xs text-white w-64 focus:outline-none focus:border-teal-400">
+                            <button onclick="loadCustomYouTube()" class="px-3.5 py-2 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold transition">
+                                Muat Video
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Preset Video Selectors -->
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="setPresetVideo('https://www.youtube.com/embed/RUgCoxZx3gY')" class="px-3 py-1.5 rounded-xl bg-teal-950/80 border border-teal-500/40 text-teal-300 text-xs font-semibold hover:bg-teal-900 transition">
+                            Preset 1: Pengertian & Ciri Teks Deskripsi
+                        </button>
+                        <button onclick="setPresetVideo('https://www.youtube.com/embed/cAqkMJyiJmE')" class="px-3 py-1.5 rounded-xl bg-teal-950/80 border border-teal-500/40 text-teal-300 text-xs font-semibold hover:bg-teal-900 transition">
+                            Preset 2: Contoh Objek & Analisis Struktur
+                        </button>
+                    </div>
+
+                    <!-- YouTube Embed Wrapper -->
+                    <div class="relative w-full aspect-video rounded-2xl overflow-hidden bg-black border border-teal-500/40 shadow-2xl">
+                        <iframe id="youtube-iframe" class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+
+                    <div class="bg-emerald-950/80 p-4 rounded-2xl border border-teal-800 flex items-center justify-between text-xs text-emerald-200">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="info" class="w-4 h-4 text-amber-400"></i>
+                            <span>Anda dapat melakukan pause manual kapan saja atau menyalin tautan YouTube di atas untuk dibagikan.</span>
+                        </div>
+                        <button onclick="copyYouTubeLink()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-teal-300 border border-teal-700 font-semibold flex items-center gap-1.5">
+                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                            <span>Copy Link</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB CONTENT 3: POST-TEST (10 SOAL) -->
+            <div id="tabcontent-posttest" class="hidden space-y-6">
+                <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-teal-500/30">
+                    <div id="posttest-header-box" class="flex items-center justify-between border-b border-teal-800 pb-4 mb-6">
+                        <div>
+                            <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Evaluasi Akhir Modul</span>
+                            <h2 class="text-xl sm:text-2xl font-extrabold text-white mt-1">Post-Test Pilihan Ganda (10 Soal)</h2>
+                        </div>
+                        <span id="posttest-counter" class="text-xs font-bold text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">Soal 1 dari 10</span>
+                    </div>
+
+                    <div id="posttest-question-container" class="glass-card p-6 rounded-2xl border border-teal-500/30 mb-6">
+                        <!-- Dynamic Question Rendered Here -->
+                    </div>
+
+                    <div id="posttest-nav-footer" class="flex justify-between items-center">
+                        <button onclick="prevPostTestQ()" id="posttest-prev-btn" class="px-4 py-2 rounded-xl bg-slate-900 text-slate-400 text-xs font-semibold border border-slate-700 disabled:opacity-40" disabled>Sebelumnya</button>
+                        <button onclick="nextPostTestQ()" id="posttest-next-btn" class="px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold transition flex items-center gap-1.5">
+                            <span>Selanjutnya</span>
+                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- LEADERBOARD MODAL -->
+    <div id="leaderboard-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-panel p-6 sm:p-8 rounded-3xl max-w-2xl w-full border border-teal-500/40 text-white shadow-2xl max-h-[85vh] flex flex-col">
+            <div class="flex items-center justify-between border-b border-teal-800 pb-4 mb-4">
+                <h3 class="text-lg font-bold text-teal-300 flex items-center gap-2">
+                    <i data-lucide="trophy" class="w-5 h-5 text-amber-400"></i>
+                    Leaderboard Peserta Terbesar
+                </h3>
+                <button onclick="closeLeaderboard()" class="text-emerald-400 hover:text-white">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div id="leaderboard-content" class="overflow-y-auto flex-grow space-y-2 pr-1">
+                <!-- Populated dynamically -->
+            </div>
+            <button onclick="closeLeaderboard()" class="mt-4 w-full py-2.5 rounded-xl bg-teal-700 hover:bg-teal-600 font-bold text-xs transition">
+                Tutup
+            </button>
+        </div>
+    </div>
+
+    <!-- ADMIN LOGIN & EXPORT MODAL -->
+    <div id="admin-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-panel p-6 sm:p-8 rounded-3xl max-w-md w-full border border-teal-500/40 text-white shadow-2xl">
+            <div class="flex items-center justify-between border-b border-teal-800 pb-4 mb-4">
+                <h3 class="text-lg font-bold text-teal-300 flex items-center gap-2">
+                    <i data-lucide="shield-alert" class="w-5 h-5 text-amber-400"></i>
+                    Panel Admin & Unduh Spreadsheet
+                </h3>
+                <button onclick="closeAdminModal()" class="text-emerald-400 hover:text-white">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            
+            <div id="admin-login-box" class="space-y-4">
+                <p class="text-xs text-emerald-200">Masukkan sandi admin untuk mengakses data seluruh peserta (Pre-Test & Post-Test).</p>
+                <div>
+                    <label class="block text-xs font-semibold text-emerald-200 mb-1">Sandi Admin:</label>
+                    <input type="password" id="admin-pass" placeholder="••••••••" class="w-full bg-emerald-900/40 border border-teal-500/30 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-teal-400">
+                </div>
+                <div id="admin-login-error" class="text-xs text-red-400 hidden">Sandi salah! Gunakan sandi: <code class="bg-black/40 px-1 py-0.5 rounded text-amber-300">admin123</code></div>
+                <button onclick="verifyAdmin()" class="w-full py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 font-bold text-xs transition">
+                    Login Admin
+                </button>
+            </div>
+
+            <div id="admin-panel-box" class="hidden space-y-4">
+                <div class="bg-emerald-950/80 p-4 rounded-xl border border-teal-800 text-xs space-y-2">
+                    <p class="text-teal-300 font-bold">Autentikasi Berhasil!</p>
+                    <p class="text-emerald-100">Anda dapat mengunduh rekapitulasi nilai seluruh peserta didik (Nama, NIM, Kelas, Skor Pre-Test, Skor Post-Test) dalam format Spreadsheet CSV.</p>
+                </div>
+                <button onclick="downloadCSVSpreadsheet()" class="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs transition flex items-center justify-center gap-2 shadow-lg">
+                    <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
+                    <span>Download Rekap Spreadsheet (.CSV)</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast Box -->
+    <div id="toast-box" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-emerald-900 border border-teal-400 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs sm:text-sm">
+        <i data-lucide="check-circle-2" class="w-5 h-5 text-amber-400"></i>
+        <span id="toast-text">Berhasil disimpan!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-teal-900/50 bg-emerald-950/90 py-6 text-center text-xs text-emerald-300/60 mt-12">
+        <p>© 2026 Modul Interaktif Bahasa Indonesia SMP — Teks Deskripsi Berbasis Cloud Database</p>
+    </footer>
+
+    <!-- JavaScript Application Logic & Firebase Integration -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Firebase Configuration & Initialization
+        const firebaseConfig = {
+            apiKey: "AIzaSyC0LM3tc_x3dJuyNJlOS0V2BNFiLjgyVaY",
+            authDomain: "project-bu-ria-f1ec2.firebaseapp.com",
+            projectId: "project-bu-ria-f1ec2",
+            storageBucket: "project-bu-ria-f1ec2.firebasestorage.app",
+            messagingSenderId: "493584914070",
+            appId: "1:493584914070:web:19f706eee31fb8f38594b7"
+        };
+        
+        // Initialize Firebase with fallback error handling for sandbox environments
+        let db = null;
+        try {
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+            db = firebase.firestore();
+        } catch(e) {
+            console.warn("Firebase offline mode fallback activated:", e);
+        }
+
+        // Global Application State
+        let studentSession = {
+            name: '',
+            nim: '',
+            classRoom: '',
+            pretestAnswers: {},
+            pretestScore: 0,
+            posttestAnswers: {},
+            posttestScore: 0
+        };
+
+        let currentPreTestIdx = 0;
+        let currentPostTestIdx = 0;
+        let isPostTestFinished = false;
+
+        // 10 Soal Pre-Test & Post-Test Database (Pilihan Ganda Teks Deskripsi SMP)
+        const quizQuestions = [
+            {
+                q: "Apa tujuan utama dari teks deskripsi?",
+                options: [
+                    "A. Menceritakan urutan kejadian peristiwa secara kronologis.",
+                    "B. Menggambarkan suatu objek secara terperinci sehingga pembaca seolah-olah melihat dan merasakan langsung.",
+                    "C. Menyajikan langkah-langkah atau petunjuk melakukan sesuatu.",
+                    "D. Menjelaskan proses terjadinya suatu fenomena alam."
+                ],
+                answer: 1
+            },
+            {
+                q: "Manakah kalimat di bawah ini yang paling tepat dikategorikan sebagai kalimat deskriptif?",
+                options: [
+                    "A. Rumah itu sangat bagus dan nyaman.",
+                    "B. Sekolah kami memiliki halaman yang luas.",
+                    "C. Halaman sekolah kami tampak asri ditumbuhi deretan pohon mangga rindang dengan lantai paving block abu-abu yang bersih.",
+                    "D. Setiap hari siswa membersihkan ruang kelas."
+                ],
+                answer: 2
+            },
+            {
+                q: "Dalam struktur teks deskripsi SMP, bagian yang berisi pengenalan nama objek, lokasi, atau gambaran umum disebut...",
+                options: [
+                    "A. Identifikasi / Gambaran Umum",
+                    "B. Deskripsi Bagian",
+                    "C. Penutup / Kesimpulan",
+                    "D. Orientasi"
+                ],
+                answer: 0
+            },
+            {
+                q: "Unsur kebahasaan yang berfungsi menunjukkan sifat atau keadaan suatu objek (misalnya: rindang, luas, bersih) adalah...",
+                options: [
+                    "A. Kata benda (Nomina)",
+                    "B. Kata sifat (Adjektiva)",
+                    "C. Kata kerja (Verba)",
+                    "D. Kata depan (Preposisi)"
+                ],
+                answer: 1
+            },
+            {
+                q: "Perhatikan kalimat berikut: 'Suara ombak bergemuruh memecah karang.' Penggunaan panca indera apakah yang dominan pada kalimat tersebut?",
+                options: [
+                    "A. Penglihatan (Mata)",
+                    "B. Pendengaran (Telinga)",
+                    "C. Perabaan (Kulit)",
+                    "D. Penciuman (Hidung)"
+                ],
+                answer: 1
+            },
+            {
+                q: "Manakah yang termasuk ke dalam struktur 'Deskripsi Bagian' pada teks deskripsi?",
+                options: [
+                    "A. Pengenalan nama perpustakaan sekolah.",
+                    "B. Kesimpulan bahwa perpustakaan sangat nyaman.",
+                    "C. Penjelasan terperinci mengenai susunan rak buku cokelat dan tata letak meja baca di dalam perpustakaan.",
+                    "D. Saran agar siswa rajin membaca."
+                ],
+                answer: 2
+            },
+            {
+                q: "Contoh penggunaan majas personifikasi dalam teks deskripsi adalah...",
+                options: [
+                    "A. Wajahnya bersinar bagaikan bulan purnama.",
+                    "B. Angin pagi berbisik lembut menyapa daun-daun.",
+                    "C. Kucing itu berlari sangat cepat.",
+                    "D. Rumah itu bertingkat dua."
+                ],
+                answer: 1
+            },
+            {
+                q: "Jenis teks deskripsi yang menguraikan objek berdasarkan ruang, posisi, atau tata letak disebut...",
+                options: [
+                    "A. Deskripsi Objektif",
+                    "B. Deskripsi Subjektif",
+                    "C. Deskripsi Spasial",
+                    "D. Deskripsi Orang"
+                ],
+                answer: 2
+            },
+            {
+                q: "Manakah kesalahan umum yang sering dilakukan siswa dalam menulis teks deskripsi?",
+                options: [
+                    "A. Menggunakan terlalu banyak detail panca indera.",
+                    "B. Penggambaran terlalu umum dan kurangnya detail konkret (misal: hanya menulis 'Rumah itu indah').",
+                    "C. Menyusun struktur secara runtut.",
+                    "D. Memilih kata sifat yang bervariasi."
+                ],
+                answer: 1
+            },
+            {
+                q: "Apa perbedaan utama antara Teks Deskripsi dan Teks Laporan Hasil Observasi (LHO)?",
+                options: [
+                    "A. Teks deskripsi bersifat faktual umum, sedangkan LHO subjektif.",
+                    "B. Teks deskripsi mengutamakan karakteristik dan kesan detail objek tertentu, sedangkan LHO menyajikan informasi hasil pengamatan secara sistematis dan mengelompokkan secara umum.",
+                    "C. Teks deskripsi berbentuk alur cerita, sedangkan LHO berbentuk dialog.",
+                    "D. Tidak ada perbedaan sama sekali."
+                ],
+                answer: 1
+            }
+        ];
+
+        // --- PRE-TEST LOGIC ---
+        function startPreTest() {
+            const name = document.getElementById('input-name').value.trim();
+            const nim = document.getElementById('input-nim').value.trim();
+            const cls = document.getElementById('input-class').value.trim();
+
+            if (!name || !nim || !cls) {
+                document.getElementById('reg-error').classList.remove('hidden');
+                return;
+            }
+
+            studentSession.name = name;
+            studentSession.nim = nim;
+            studentSession.classRoom = cls;
+
+            document.getElementById('reg-form-box').classList.add('hidden');
+            document.getElementById('pretest-quiz-box').classList.remove('hidden');
+            renderPreTestQuestion();
+        }
+
+        function renderPreTestQuestion() {
+            const container = document.getElementById('pretest-question-container');
+            const q = quizQuestions[currentPreTestIdx];
+            document.getElementById('pretest-counter').innerText = `Soal ${currentPreTestIdx + 1} dari 10`;
+
+            let html = `<p class="text-sm sm:text-base font-bold text-white mb-4">${currentPreTestIdx + 1}. ${q.q}</p><div class="space-y-2.5">`;
+            q.options.forEach((opt, idx) => {
+                const selected = studentSession.pretestAnswers[currentPreTestIdx] === idx;
+                html += `
+                    <button onclick="selectPreTestOpt(${idx})" class="w-full text-left p-3.5 rounded-xl border text-xs sm:text-sm transition flex items-center justify-between ${selected ? 'bg-teal-600/40 border-teal-400 text-white font-semibold' : 'bg-emerald-950/70 border-teal-800/80 text-emerald-100 hover:border-teal-400'}">
+                        <span>${opt}</span>
+                        <span class="w-5 h-5 rounded-full border border-teal-500/50 flex items-center justify-center text-[10px] ${selected ? 'bg-teal-500 text-white' : ''}">${selected ? '✓' : ''}</span>
+                    </button>
+                `;
+            });
+            html += `</div>`;
+            container.innerHTML = html;
+
+            document.getElementById('pretest-prev-btn').disabled = currentPreTestIdx === 0;
+            const nextBtn = document.getElementById('pretest-next-btn');
+            if (currentPreTestIdx === 9) {
+                nextBtn.innerHTML = `<span>Selesai & Buka Materi</span> <i data-lucide="check-circle" class="w-4 h-4"></i>`;
+            } else {
+                nextBtn.innerHTML = `<span>Selanjutnya</span> <i data-lucide="chevron-right" class="w-4 h-4"></i>`;
+            }
+            lucide.createIcons();
+        }
+
+        function selectPreTestOpt(optIdx) {
+            studentSession.pretestAnswers[currentPreTestIdx] = optIdx;
+            renderPreTestQuestion();
+        }
+
+        function prevPreTestQ() {
+            if (currentPreTestIdx > 0) {
+                currentPreTestIdx--;
+                renderPreTestQuestion();
+            }
+        }
+
+        function nextPreTestQ() {
+            if (studentSession.pretestAnswers[currentPreTestIdx] === undefined) {
+                showToast("Pilih salah satu jawaban terlebih dahulu!");
+                return;
+            }
+            if (currentPreTestIdx < 9) {
+                currentPreTestIdx++;
+                renderPreTestQuestion();
+            } else {
+                finishPreTest();
+            }
+        }
+
+        function finishPreTest() {
+            let correct = 0;
+            quizQuestions.forEach((q, idx) => {
+                if (studentSession.pretestAnswers[idx] === q.answer) correct++;
+            });
+            studentSession.pretestScore = correct * 10;
+
+            // Save to Firestore Database
+            saveSessionToFirebase();
+
+            // Transition to Main Stage
+            document.getElementById('stage-pretest').classList.add('hidden');
+            document.getElementById('stage-main').classList.remove('hidden');
+            document.getElementById('student-badge-container').style.display = 'flex';
+            document.getElementById('welcome-student-name').innerText = `Halo, ${studentSession.name}!`;
+            document.getElementById('welcome-student-meta').innerText = `NIM/NIS: ${studentSession.nim} | Kelas: ${studentSession.classRoom}`;
+            document.getElementById('display-pretest-score').innerText = `${studentSession.pretestScore} / 100`;
+
+            showToast("Pre-Test selesai! Menu materi dan video interaktif kini terbuka.");
+        }
+
+        // --- NAVIGATION TABS ---
+        function switchTab(tabName) {
+            ['materi', 'video', 'posttest'].forEach(t => {
+                document.getElementById(`tabcontent-${t}`).classList.add('hidden');
+                document.getElementById(`navtab-${t}`).className = "px-4 py-2 rounded-xl text-xs font-bold transition text-emerald-200 hover:bg-teal-900/40 flex items-center gap-2 border border-transparent";
+            });
+            document.getElementById(`tabcontent-${tabName}`).classList.remove('hidden');
+            document.getElementById(`navtab-${tabName}`).className = "active-nav px-4 py-2 rounded-xl text-xs font-bold transition text-white flex items-center gap-2 border border-transparent";
+            
+            if (tabName === 'posttest' && Object.keys(studentSession.posttestAnswers).length === 0 && !isPostTestFinished) {
+                renderPostTestQuestion();
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            lucide.createIcons();
+        }
+
+        // --- YOUTUBE CONTROLS ---
+        function setPresetVideo(embedUrl) {
+            document.getElementById('youtube-iframe').src = embedUrl;
+            showToast("Video YouTube berhasil dimuat!");
+        }
+
+        function loadCustomYouTube() {
+            let rawUrl = document.getElementById('youtube-url-input').value.trim();
+            if (!rawUrl) {
+                showToast("Masukkan URL YouTube terlebih dahulu!");
+                return;
+            }
+            // Convert standard watch URL to embed URL if needed
+            if (rawUrl.includes("watch?v=")) {
+                rawUrl = rawUrl.replace("watch?v=", "embed/");
+            } else if (rawUrl.includes("youtu.be/")) {
+                const parts = rawUrl.split("youtu.be/");
+                rawUrl = "https://www.youtube.com/embed/" + parts[1];
+            }
+            document.getElementById('youtube-iframe').src = rawUrl;
+            showToast("Video custom YouTube berhasil disematkan!");
+        }
+
+        function copyYouTubeLink() {
+            const iframeSrc = document.getElementById('youtube-iframe').src;
+            const dummy = document.createElement('textarea');
+            document.body.appendChild(dummy);
+            dummy.value = iframeSrc;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+            showToast("Link YouTube berhasil disalin ke clipboard!");
+        }
+
+        // --- POST-TEST LOGIC ---
+        function renderPostTestQuestion() {
+            isPostTestFinished = false;
+            document.getElementById('posttest-header-box').style.display = 'flex';
+            const container = document.getElementById('posttest-question-container');
+            const footer = document.getElementById('posttest-nav-footer');
+            footer.style.display = 'flex';
+
+            const q = quizQuestions[currentPostTestIdx];
+            document.getElementById('posttest-counter').innerText = `Soal ${currentPostTestIdx + 1} dari 10`;
+
+            let html = `<p class="text-sm sm:text-base font-bold text-white mb-4">${currentPostTestIdx + 1}. ${q.q}</p><div class="space-y-2.5">`;
+            q.options.forEach((opt, idx) => {
+                const selected = studentSession.posttestAnswers[currentPostTestIdx] === idx;
+                html += `
+                    <button onclick="selectPostTestOpt(${idx})" class="w-full text-left p-3.5 rounded-xl border text-xs sm:text-sm transition flex items-center justify-between ${selected ? 'bg-teal-600/40 border-teal-400 text-white font-semibold' : 'bg-emerald-950/70 border-teal-800/80 text-emerald-100 hover:border-teal-400'}">
+                        <span>${opt}</span>
+                        <span class="w-5 h-5 rounded-full border border-teal-500/50 flex items-center justify-center text-[10px] ${selected ? 'bg-teal-500 text-white' : ''}">${selected ? '✓' : ''}</span>
+                    </button>
+                `;
+            });
+            html += `</div>`;
+            container.innerHTML = html;
+
+            document.getElementById('posttest-prev-btn').disabled = currentPostTestIdx === 0;
+            const nextBtn = document.getElementById('posttest-next-btn');
+            if (currentPostTestIdx === 9) {
+                nextBtn.innerHTML = `<span>Simpulkan & Kirim Post-Test</span> <i data-lucide="check-circle" class="w-4 h-4"></i>`;
+            } else {
+                nextBtn.innerHTML = `<span>Selanjutnya</span> <i data-lucide="chevron-right" class="w-4 h-4"></i>`;
+            }
+            lucide.createIcons();
+        }
+
+        function selectPostTestOpt(optIdx) {
+            studentSession.posttestAnswers[currentPostTestIdx] = optIdx;
+            renderPostTestQuestion();
+        }
+
+        function prevPostTestQ() {
+            if (currentPostTestIdx > 0) {
+                currentPostTestIdx--;
+                renderPostTestQuestion();
+            }
+        }
+
+        function nextPostTestQ() {
+            if (studentSession.posttestAnswers[currentPostTestIdx] === undefined) {
+                showToast("Pilih salah satu jawaban terlebih dahulu!");
+                return;
+            }
+            if (currentPostTestIdx < 9) {
+                currentPostTestIdx++;
+                renderPostTestQuestion();
+            } else {
+                finishPostTest();
+            }
+        }
+
+        function finishPostTest() {
+            let correct = 0;
+            quizQuestions.forEach((q, idx) => {
+                if (studentSession.posttestAnswers[idx] === q.answer) correct++;
+            });
+            studentSession.posttestScore = correct * 10;
+            isPostTestFinished = true;
+
+            // Update session in Firebase Database
+            saveSessionToFirebase();
+            showToast(`Post-Test selesai! Skor Anda: ${studentSession.posttestScore} / 100`);
+
+            // Render Post-Test Result & Action Buttons
+            document.getElementById('posttest-header-box').style.display = 'none';
+            const container = document.getElementById('posttest-question-container');
+            document.getElementById('posttest-nav-footer').style.display = 'none';
+
+            container.innerHTML = `
+                <div class="text-center py-6 space-y-4">
+                    <div class="inline-flex p-4 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 mb-2">
+                        <i data-lucide="award" class="w-12 h-12"></i>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-extrabold text-white">Evaluasi Post-Test Selesai!</h3>
+                    <p class="text-xs sm:text-sm text-emerald-200">Terima kasih telah menyelesaikan seluruh rangkaian modul pembelajaran Teks Deskripsi.</p>
+                    
+                    <div class="inline-block bg-emerald-950/80 border border-teal-500/30 px-6 py-3 rounded-2xl my-3">
+                        <span class="text-xs text-teal-300 block uppercase font-bold">Skor Akhir Anda</span>
+                        <span class="text-3xl font-extrabold text-amber-400">${studentSession.posttestScore} / 100</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4 max-w-xl mx-auto">
+                        <button onclick="switchTab('materi')" class="w-full py-3 px-4 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs transition flex items-center justify-center gap-2 shadow-lg">
+                            <i data-lucide="book-open" class="w-4 h-4"></i>
+                            <span>Kembali ke Materi</span>
+                        </button>
+                        <button onclick="restartPostTest()" class="w-full py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-teal-300 border border-teal-500/30 font-bold text-xs transition flex items-center justify-center gap-2 shadow-lg">
+                            <i data-lucide="rotate-cw" class="w-4 h-4"></i>
+                            <span>Ulangi Post-Test</span>
+                        </button>
+                        <button onclick="openLeaderboard()" class="w-full py-3 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs transition flex items-center justify-center gap-2 shadow-lg">
+                            <i data-lucide="trophy" class="w-4 h-4"></i>
+                            <span>Lihat Leaderboard</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        function restartPostTest() {
+            studentSession.posttestAnswers = {};
+            currentPostTestIdx = 0;
+            renderPostTestQuestion();
+            showToast("Silakan mulai ulang Post-Test!");
+        }
+
+        // --- FIREBASE DATABASE SYNC ---
+        function saveSessionToFirebase() {
+            if (!db) return;
+            try {
+                db.collection("student_results").doc(studentSession.nim).set({
+                    name: studentSession.name,
+                    nim: studentSession.nim,
+                    classRoom: studentSession.classRoom,
+                    pretestScore: studentSession.pretestScore,
+                    posttestScore: studentSession.posttestScore,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                }, { merge: true }).catch(err => console.error("Firebase write error:", err));
+            } catch(e) {
+                console.error("Firestore sync exception:", e);
+            }
+        }
+
+        // --- LEADERBOARD MODAL ---
+        async function openLeaderboard() {
+            const modal = document.getElementById('leaderboard-modal');
+            const content = document.getElementById('leaderboard-content');
+            modal.classList.remove('hidden');
+            content.innerHTML = `<p class="text-center text-xs text-emerald-300 py-6">Memuat peringkat peserta...</p>`;
+
+            let participants = [];
+            if (db) {
+                try {
+                    const snapshot = await db.collection("student_results").orderBy("posttestScore", "desc").get();
+                    snapshot.forEach(doc => {
+                        participants.push(doc.data());
+                    });
+                } catch(e) {
+                    console.error("Error reading leaderboard:", e);
+                }
+            }
+
+            // Fallback / include current active student if not synced yet
+            if (!participants.some(p => p.nim === studentSession.nim) && studentSession.name) {
+                participants.push(studentSession);
+            }
+
+            // Sort descending by posttest score
+            participants.sort((a, b) => b.posttestScore - a.posttestScore);
+
+            if (participants.length === 0) {
+                content.innerHTML = `<p class="text-center text-xs text-emerald-300 py-6">Belum ada data peserta.</p>`;
+                return;
+            }
+
+            let html = `<div class="space-y-2">`;
+            participants.forEach((p, idx) => {
+                const rankColor = idx === 0 ? 'text-amber-400 bg-amber-500/10 border-amber-500/30' : (idx === 1 ? 'text-slate-200 bg-slate-500/10 border-slate-500/30' : (idx === 2 ? 'text-amber-600 bg-amber-700/10 border-amber-700/30' : 'text-emerald-300 bg-emerald-950/50 border-teal-900'));
+                html += `
+                    <div class="p-3.5 rounded-2xl border ${rankColor} flex items-center justify-between text-xs">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-7 h-7 rounded-xl font-extrabold flex items-center justify-center bg-emerald-900/80 border border-teal-500/40">${idx + 1}</span>
+                            <div>
+                                <span class="font-bold text-white block text-sm">${p.name}</span>
+                                <span class="text-[10px] text-emerald-200/80">NIM/NIS: ${p.nim} | Kelas: ${p.classRoom}</span>
+                            </div>
+                        </div>
+                        <div class="text-right flex items-center gap-4">
+                            <div>
+                                <span class="text-[10px] text-emerald-300 block">Pre-Test</span>
+                                <span class="font-bold text-teal-300">${p.pretestScore || 0}</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-amber-300 block">Post-Test</span>
+                                <span class="font-extrabold text-amber-400 text-sm">${p.posttestScore || 0}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            html += `</div>`;
+            content.innerHTML = html;
+        }
+
+        function closeLeaderboard() {
+            document.getElementById('leaderboard-modal').classList.add('hidden');
+        }
+
+        // --- ADMIN PANEL & SPREADSHEET EXPORT ---
+        function openAdminModal() {
+            document.getElementById('admin-modal').classList.remove('hidden');
+            document.getElementById('admin-pass').value = '';
+            document.getElementById('admin-login-error').classList.add('hidden');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('admin-modal').classList.add('hidden');
+        }
+
+        function verifyAdmin() {
+            const pass = document.getElementById('admin-pass').value.trim();
+            if (pass === "admin123") {
+                document.getElementById('admin-login-box').classList.add('hidden');
+                document.getElementById('admin-panel-box').classList.remove('hidden');
+                showToast("Login Admin Berhasil!");
+            } else {
+                document.getElementById('admin-login-error').classList.remove('hidden');
+            }
+        }
+
+        async function downloadCSVSpreadsheet() {
+            let participants = [];
+            if (db) {
+                try {
+                    const snapshot = await db.collection("student_results").get();
+                    snapshot.forEach(doc => {
+                        participants.push(doc.data());
+                    });
+                } catch(e) {
+                    console.error("Error fetching for CSV:", e);
+                }
+            }
+            if (!participants.some(p => p.nim === studentSession.nim) && studentSession.name) {
+                participants.push(studentSession);
+            }
+
+            if (participants.length === 0) {
+                showToast("Tidak ada data peserta untuk diunduh.");
+                return;
+            }
+
+            // Build CSV Content
+            let csvContent = "data:text/csv;charset=utf-8,Nama,NIM_NIS,Kelas,Skor_PreTest,Skor_PostTest\n";
+            participants.forEach(p => {
+                csvContent += `"${p.name}","${p.nim}","${p.classRoom}",${p.pretestScore || 0},${p.posttestScore || 0}\n`;
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "Rekap_Nilai_Teks_Deskripsi_SMP.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showToast("Spreadsheet CSV berhasil diunduh!");
+        }
+
+        // --- TOAST NOTIFICATION HELPER ---
+        function showToast(msg) {
+            const toast = document.getElementById('toast-box');
+            document.getElementById('toast-text').innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
