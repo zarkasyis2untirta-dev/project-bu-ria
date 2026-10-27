@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edukasi Interaktif Teks Deskripsi</title>
+    <title>Edukasi Interaktif Teks Deskripsi SMP</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -53,7 +53,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #022c22; }
         ::-webkit-scrollbar-thumb { background: #0d9488; border-radius: 4px; }
         .active-nav {
@@ -110,7 +110,7 @@
                         Selamat Datang di Portal Belajar Teks Deskripsi
                     </h1>
                     <p class="text-xs sm:text-sm text-emerald-100/80">
-                        Masukkan NIM/NIS Anda. Jika sudah terdaftar di database, Anda akan langsung diarahkan ke menu materi utama. Jika belum, silakan lengkapi identitas dan ikuti Pre-Test.
+                        Silakan lengkapi identitas Anda. Jika NIM/NIS Anda sudah terdaftar di sistem, Anda akan langsung diarahkan ke menu materi utama. Jika belum, selesaikan 10 soal Pre-Test di bawah ini.
                     </p>
                 </div>
 
@@ -166,7 +166,7 @@
             </div>
         </section>
 
-        <!-- STAGE 2: MAIN DASHBOARD & MATERIAL MODULES -->
+        <!-- STAGE 2: MAIN DASHBOARD & MATERIAL MODULES (Hidden until validation) -->
         <section id="stage-main" class="hidden space-y-8">
             
             <!-- Student Header Welcome Banner -->
@@ -196,10 +196,10 @@
             <div class="flex justify-center overflow-x-auto py-2">
                 <div class="glass-panel p-1.5 rounded-2xl border border-teal-500/30 inline-flex gap-1.5 min-w-max">
                     <button onclick="switchTab('materi')" id="navtab-materi" class="active-nav px-4 py-2 rounded-xl text-xs font-bold transition text-white flex items-center gap-2 border border-transparent">
-                        <i data-lucide="book-open" class="w-4 h-4"></i> Materi Lengkap & Video
+                        <i data-lucide="book-open" class="w-4 h-4"></i> Materi Lengkap
                     </button>
                     <button onclick="switchTab('video')" id="navtab-video" class="px-4 py-2 rounded-xl text-xs font-bold transition text-emerald-200 hover:bg-teal-900/40 flex items-center gap-2 border border-transparent">
-                        <i data-lucide="video" class="w-4 h-4"></i> Pemutar Video Utama
+                        <i data-lucide="video" class="w-4 h-4"></i> Video Interaktif
                     </button>
                     <button onclick="switchTab('posttest')" id="navtab-posttest" class="px-4 py-2 rounded-xl text-xs font-bold transition text-emerald-200 hover:bg-teal-900/40 flex items-center gap-2 border border-transparent">
                         <i data-lucide="award" class="w-4 h-4"></i> Post-Test (10 Soal)
@@ -207,140 +207,212 @@
                 </div>
             </div>
 
-            <!-- TAB CONTENT 1: MATERI LENGKAP DENGAN EMBED VIDEO DI SAMPING -->
-            <div id="tabcontent-materi" class="space-y-8">
+            <!-- TAB CONTENT 1: MATERI LENGKAP TEKS DESKRIPSI SMP (Sesuai Permintaan) -->
+            <div id="tabcontent-materi" class="space-y-6">
                 <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-teal-500/30 space-y-6">
                     
                     <div class="border-b border-teal-800 pb-4">
-                        <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Modul Akademik Bahasa Indonesia SMP</span>
-                        <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Komik & Materi Pembelajaran Teks Deskripsi</h2>
-                        <p class="text-xs sm:text-sm text-emerald-200 mt-1">Setiap bagian materi di bawah ini dilengkapi dengan video pembelajaran interaktif pendukung.</p>
+                        <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Materi Utama Kurikulum SMP</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Kompendium Akademis Teks Deskripsi</h2>
+                        <p class="text-xs sm:text-sm text-emerald-200 mt-1">Materi komprehensif mencakup hakikat konseptual, klasifikasi akademik, struktur anatomikal, kaidah kebahasaan, hingga analisis linguistik teks.</p>
                     </div>
 
-                    <!-- MATERI 1 + VIDEO 1 -->
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center glass-card p-5 sm:p-6 rounded-2xl border border-teal-500/20">
-                        <div class="lg:col-span-7 space-y-3">
-                            <span class="px-2.5 py-1 rounded-md bg-teal-500/20 text-teal-300 text-[10px] font-bold uppercase">Sub-Bab 1</span>
-                            <h3 class="text-base sm:text-lg font-bold text-white">1. Hakikat dan Batasan Konseptual Teks Deskripsi</h3>
-                            <p class="text-xs sm:text-sm text-emerald-100 leading-relaxed">
-                                Secara etimologis, kata deskripsi berasal dari bahasa Latin <em>describere</em>, yang berarti "menggambarkan" atau "membeberkan suatu hal". Dalam ilmu linguistik dan analitis teks, teks deskripsi adalah bentuk wacana yang mentransformasikan persepsi indrawi menjadi bentuk bahasa tertulis.
-                            </p>
-                            <p class="text-xs sm:text-sm text-emerald-100 leading-relaxed">
-                                Tujuan utama dari wacana deskriptif adalah <strong>objektifikasi persepsi</strong>, yaitu memindahkan pengalaman spasial, visual, auditif, maupun taktil dari penulis ke dalam imajinasi pembaca secara presisi, sehingga pembaca seolah-olah mengalami interaksi langsung dengan objek tersebut.
-                            </p>
-                        </div>
-                        <div class="lg:col-span-5">
-                            <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black border border-teal-500/30 shadow-lg">
-                                <iframe class="w-full h-full" src="https://www.youtube.com/embed/RUgCoxZx3gY" title="Video Materi 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <!-- SUB-BAB 1 -->
+                    <div class="glass-card p-5 sm:p-6 rounded-2xl border border-teal-500/20 space-y-4">
+                        <div class="flex flex-col lg:flex-row gap-6 items-start">
+                            <div class="flex-grow space-y-3">
+                                <h3 class="text-base sm:text-lg font-bold text-teal-300 flex items-center gap-2">
+                                    <span class="w-7 h-7 rounded-xl bg-teal-500/20 text-teal-300 flex items-center justify-center text-xs">1</span>
+                                    Hakikat dan Batasan Konseptual Teks Deskripsi
+                                </h3>
+                                <p class="text-xs sm:text-sm text-emerald-100 leading-relaxed">
+                                    Secara etimologis, kata deskripsi berasal dari bahasa Latin <em>describere</em>, yang berarti "menggambarkan" atau "membeberkan suatu hal". Dalam ilmu linguistik dan analitis teks, teks deskripsi adalah bentuk wacana yang mentransformasikan persepsi indrawi menjadi bentuk bahasa tertulis.
+                                </p>
+                                <p class="text-xs sm:text-sm text-emerald-100 leading-relaxed">
+                                    Tujuan utama dari wacana deskriptif adalah <strong>objektifikasi persepsi</strong>, yaitu memindahkan pengalaman spasial, visual, auditif, maupun taktil dari penulis ke dalam imajinasi pembaca secara presisi, sehingga pembaca seolah-olah mengalami interaksi langsung dengan objek tersebut.
+                                </p>
                             </div>
-                            <span class="text-[10px] text-teal-300/80 text-center block mt-1.5">Video 1: Pengertian & Tujuan Teks Deskripsi</span>
-                        </div>
-                    </div>
-
-                    <!-- MATERI 2 + VIDEO 2 -->
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center glass-card p-5 sm:p-6 rounded-2xl border border-teal-500/20">
-                        <div class="lg:col-span-7 space-y-3">
-                            <span class="px-2.5 py-1 rounded-md bg-teal-500/20 text-teal-300 text-[10px] font-bold uppercase">Sub-Bab 2</span>
-                            <h3 class="text-base sm:text-lg font-bold text-white">2. Klasifikasi Teks Deskripsi (Perspektif Akademik)</h3>
-                            <p class="text-xs sm:text-sm text-emerald-100 leading-relaxed">
-                                Berdasarkan sudut pandang dan teknik penyampaiannya, teks deskripsi dikategorikan menjadi beberapa jenis utama:
-                            </p>
-                            <ul class="list-disc list-inside text-xs sm:text-sm text-emerald-100 space-y-1 pl-1">
-                                <li><strong>Berdasarkan Subjektivitas:</strong> Deskripsi Objektif (Eksplanatori) murni berdasarkan kenyataan empiris, dan Deskripsi Subjektif (Afektif) yang terikat dengan emosi/penilaian personal penulis.</li>
-                                <li><strong>Berdasarkan Objek Penggambaran:</strong> Deskripsi Spasial (Ruang dan Tempat), Deskripsi Orang (Karakteristik fisik & watak), serta Deskripsi Waktu (Kronologis suasana momen tertentu).</li>
-                            </ul>
-                        </div>
-                        <div class="lg:col-span-5">
-                            <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black border border-teal-500/30 shadow-lg">
-                                <iframe class="w-full h-full" src="https://www.youtube.com/embed/cAqkMJyiJmE" title="Video Materi 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <div class="w-full lg:w-80 aspect-video rounded-xl overflow-hidden border border-teal-500/30 flex-shrink-0 bg-black">
+                                <iframe class="w-full h-full" src="https://www.youtube.com/embed/RUgCoxZx3gY" title="Video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             </div>
-                            <span class="text-[10px] text-teal-300/80 text-center block mt-1.5">Video 2: Klasifikasi & Struktur Teks Deskripsi</span>
                         </div>
                     </div>
 
-                    <!-- MATERI 3 + VIDEO 1 -->
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center glass-card p-5 sm:p-6 rounded-2xl border border-teal-500/20">
-                        <div class="lg:col-span-7 space-y-3">
-                            <span class="px-2.5 py-1 rounded-md bg-teal-500/20 text-teal-300 text-[10px] font-bold uppercase">Sub-Bab 3</span>
-                            <h3 class="text-base sm:text-lg font-bold text-white">3. Anatomikal dan Konstruksi Struktur Teks Deskripsi</h3>
-                            <p class="text-xs sm:text-sm text-emerald-100 leading-relaxed">
-                                Teks deskripsi akademik dibangun di atas tiga fondasi struktur sistematis:
-                            </p>
-                            <div class="space-y-1.5 text-xs text-emerald-200">
-                                <div class="bg-emerald-950/70 p-2 rounded-lg border border-teal-900">
-                                    <strong class="text-amber-400">1. Identifikasi / Klasifikasi:</strong> Pengenalan objek, lokasi, atau definisi umum pembatas konteks.
-                                </div>
-                                <div class="bg-emerald-950/70 p-2 rounded-lg border border-teal-900">
-                                    <strong class="text-amber-400">2. Deskripsi Bagian:</strong> Inti teks pemecah objek menjadi sub-komponen dengan pencerapan indra maksimal.
-                                </div>
-                                <div class="bg-emerald-950/70 p-2 rounded-lg border border-teal-900">
-                                    <strong class="text-amber-400">3. Simpulan / Kesan:</strong> Pandangan menyeluruh, nilai estetika, atau dampak emosional.
+                    <!-- SUB-BAB 2 -->
+                    <div class="glass-card p-5 sm:p-6 rounded-2xl border border-teal-500/20 space-y-4">
+                        <div class="flex flex-col lg:flex-row gap-6 items-start">
+                            <div class="flex-grow space-y-3">
+                                <h3 class="text-base sm:text-lg font-bold text-teal-300 flex items-center gap-2">
+                                    <span class="w-7 h-7 rounded-xl bg-teal-500/20 text-teal-300 flex items-center justify-center text-xs">2</span>
+                                    Klasifikasi Teks Deskripsi (Perspektif Akademik)
+                                </h3>
+                                <p class="text-xs sm:text-sm text-emerald-100">Berdasarkan sudut pandang dan teknik penyampaiannya, teks deskripsi dikategorikan menjadi beberapa jenis utama:</p>
+                                
+                                <div class="space-y-3 pl-2 text-xs sm:text-sm text-emerald-100">
+                                    <div class="bg-emerald-950/70 p-3.5 rounded-xl border border-teal-900">
+                                        <strong class="text-amber-300 block mb-1">A. Berdasarkan Tingkat Subjektivitas Penulis</strong>
+                                        <ul class="list-disc list-inside space-y-1 mt-1 pl-1">
+                                            <li><strong>Deskripsi Objektif (Eksplanatori):</strong> Murni berdasarkan kenyataan empiris tanpa emosi/pandangan pribadi (Fokus: ukuran, bahan, warna, data kuantitatif). <br><em>Contoh:</em> "Gedung Rektorat berdiri di atas lahan seluas 1.200 meter persegi dengan struktur beton bertulang..."</li>
+                                            <li><strong>Deskripsi Subjektif (Afektif):</strong> Terikat erat dengan tafsiran, emosi, dan tanggapan personal penulis. <br><em>Contoh:</em> "Gedung Rektorat berdiri melambangkan keangkuhan arsitektur modern dengan kaca birunya yang dingin..."</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="bg-emerald-950/70 p-3.5 rounded-xl border border-teal-900">
+                                        <strong class="text-amber-300 block mb-1">B. Berdasarkan Objek Penggambaran</strong>
+                                        <ul class="list-disc list-inside space-y-1 mt-1 pl-1">
+                                            <li><strong>Deskripsi Spasial (Ruang/Tempat):</strong> Menggambarkan tata letak, dimensi, dan hubungan antarruang.</li>
+                                            <li><strong>Deskripsi Orang (Karakterologi):</strong> Menggambarkan ciri fisik (prosopografi) atau watak (etografi).</li>
+                                            <li><strong>Deskripsi Waktu (Kronologis Spasial):</strong> Menggambarkan kondisi/suasana objek pada momen waktu tertentu.</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="lg:col-span-5">
-                            <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black border border-teal-500/30 shadow-lg">
-                                <iframe class="w-full h-full" src="https://www.youtube.com/embed/RUgCoxZx3gY" title="Video Materi 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <div class="w-full lg:w-80 aspect-video rounded-xl overflow-hidden border border-teal-500/30 flex-shrink-0 bg-black">
+                                <iframe class="w-full h-full" src="https://www.youtube.com/embed/cAqkMJyiJmE" title="Video 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             </div>
-                            <span class="text-[10px] text-teal-300/80 text-center block mt-1.5">Video Pendukung: Bedah Struktur Teks</span>
                         </div>
                     </div>
 
-                    <!-- MATERI 4 + VIDEO 2 -->
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center glass-card p-5 sm:p-6 rounded-2xl border border-teal-500/20">
-                        <div class="lg:col-span-7 space-y-3">
-                            <span class="px-2.5 py-1 rounded-md bg-teal-500/20 text-teal-300 text-[10px] font-bold uppercase">Sub-Bab 4</span>
-                            <h3 class="text-base sm:text-lg font-bold text-white">4. Kaidah Kebahasaan dan Gramatika Spesifik</h3>
-                            <p class="text-xs sm:text-sm text-emerald-100 leading-relaxed">
-                                Unsur kebahasaan khas yang membentuk teks deskripsi meliputi:
-                            </p>
-                            <ul class="list-disc list-inside text-xs sm:text-sm text-emerald-100 space-y-1 pl-1">
-                                <li><strong>Kata Benda Spesifik:</strong> Menunjuk langsung objek tunggal (cth: <em>Gedung Rektorat Universitas X</em>).</li>
-                                <li><strong>Frasa Adjektiva:</strong> Memberikan sifat/kualitas rinci (cth: <em>meja kayu jati yang dipelitur mengilap</em>).</li>
-                                <li><strong>Kata Kerja Relasional & Pencerapan Indra:</strong> Menghubungkan keadaan (<em>terdiri atas, merupakan</em>) dan merangsang pancaindra (<em>terdengar gemericik</em>).</li>
-                                <li><strong>Keterangan Tempat & Majas:</strong> Memperjelas posisi spasial dan citraan kiasan.</li>
-                            </ul>
-                        </div>
-                        <div class="lg:col-span-5">
-                            <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black border border-teal-500/30 shadow-lg">
-                                <iframe class="w-full h-full" src="https://www.youtube.com/embed/cAqkMJyiJmE" title="Video Materi 4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <!-- SUB-BAB 3 -->
+                    <div class="glass-card p-5 sm:p-6 rounded-2xl border border-teal-500/20 space-y-4">
+                        <div class="flex flex-col lg:flex-row gap-6 items-start">
+                            <div class="flex-grow space-y-3">
+                                <h3 class="text-base sm:text-lg font-bold text-teal-300 flex items-center gap-2">
+                                    <span class="w-7 h-7 rounded-xl bg-teal-500/20 text-teal-300 flex items-center justify-center text-xs">3</span>
+                                    Anatomikal dan Konstruksi Struktur Teks Deskripsi
+                                </h3>
+                                <p class="text-xs sm:text-sm text-emerald-100">Teks deskripsi akademik dibangun di atas tiga fondasi struktur sistematis:</p>
+                                
+                                <div class="bg-emerald-950/80 p-3 rounded-xl border border-teal-800 font-mono text-[11px] text-teal-300 whitespace-pre-wrap leading-tight">
++-------------------------------------------------------+
+| 1. IDENTIFIKASI / KLASIFIKASI                        |
+|    - Pengenalan Objek                                 |
+|    - Lokasi / Definisi Umum                           |
++-------------------------------------------------------+
+                           |
+                           v
++-------------------------------------------------------+
+| 2. DESKRIPSI BAGIAN (EKSPLORASI RINCIAN)              |
+|    - Pencerapan Indra (Visual, Auditif, Taktil, dll) |
+|    - Sub-bagian / Karakteristik Spesifik             |
++-------------------------------------------------------+
+                           |
+                           v
++-------------------------------------------------------+
+| 3. SIMPULAN / KESAN (OPSIONAL)                         |
+|    - Sintesis Penulis                                 |
+|    - Evaluasi / Refleksi Akhir                        |
++-------------------------------------------------------+</div>
+                                <ul class="text-xs sm:text-sm text-emerald-100 space-y-1.5 pl-2">
+                                    <li><strong>1. Identifikasi (Orientasi):</strong> Menetapkan identitas objek, nama, letak, atau sejarah singkat.</li>
+                                    <li><strong>2. Deskripsi Bagian (Elaborasi):</strong> Memecah objek utama menjadi sub-komponen dengan pencerapan indra maksimal.</li>
+                                    <li><strong>3. Simpulan/Kesan (Penutup):</strong> Pandangan menyeluruh, nilai estetika, atau dampak emosional.</li>
+                                </ul>
                             </div>
-                            <span class="text-[10px] text-teal-300/80 text-center block mt-1.5">Video Pendukung: Kaidah Kebahasaan</span>
+                            <div class="w-full lg:w-80 aspect-video rounded-xl overflow-hidden border border-teal-500/30 flex-shrink-0 bg-black">
+                                <iframe class="w-full h-full" src="https://www.youtube.com/embed/RUgCoxZx3gY" title="Video 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- MATERI 5 + VIDEO 1 -->
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center glass-card p-5 sm:p-6 rounded-2xl border border-teal-500/20">
-                        <div class="lg:col-span-7 space-y-3">
-                            <span class="px-2.5 py-1 rounded-md bg-teal-500/20 text-teal-300 text-[10px] font-bold uppercase">Sub-Bab 5</span>
-                            <h3 class="text-base sm:text-lg font-bold text-white">5. Contoh Komprehensif & Analisis Linguistik</h3>
-                            <p class="text-xs sm:text-sm text-emerald-100 leading-relaxed">
-                                <strong>Judul: Kawasan Konservasi Mangrove Mangunharjo</strong>
-                            </p>
-                            <div class="bg-emerald-950/80 p-3 rounded-xl border border-teal-800 text-xs text-emerald-100 space-y-2">
-                                <p><strong>[Identifikasi]:</strong> Area hutan bakau 50 hektar di pesisir utara Semarang sebagai benteng ekologis alami.</p>
-                                <p><strong>[Deskripsi Bagian]:</strong> Didominasi spesies <em>Rhizophora mucronata</em>, jembatan kayu ulin 1,5 meter, aroma khas sedimen tanah asin, serta gardu pandang menghadap Laut Jawa.</p>
-                                <p><strong>[Simpulan]:</strong> Berfungsi sebagai peredam gempuran ombak sekaligus pelindung vegetasi pesisir.</p>
+                    <!-- SUB-BAB 4 -->
+                    <div class="glass-card p-5 sm:p-6 rounded-2xl border border-teal-500/20 space-y-4">
+                        <div class="flex flex-col lg:flex-row gap-6 items-start">
+                            <div class="flex-grow space-y-3">
+                                <h3 class="text-base sm:text-lg font-bold text-teal-300 flex items-center gap-2">
+                                    <span class="w-7 h-7 rounded-xl bg-teal-500/20 text-teal-300 flex items-center justify-center text-xs">4</span>
+                                    Kaidah Kebahasaan dan Gramatika Spesifik
+                                </h3>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-left text-xs text-emerald-100 border-collapse">
+                                        <thead>
+                                            <tr class="border-b border-teal-800 text-teal-300">
+                                                <th class="p-2.5">Unsur Kebahasaan</th>
+                                                <th class="p-2.5">Fungsi Gramatikal</th>
+                                                <th class="p-2.5">Contoh Penerapan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-teal-900/60">
+                                            <tr>
+                                                <td class="p-2.5 font-semibold">Kata Benda Spesifik</td>
+                                                <td class="p-2.5">Menunjuk langsung objek tunggal & presisi</td>
+                                                <td class="p-2.5 text-teal-300">Gedung Rektorat Universitas X</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-2.5 font-semibold">Frasa Adjektiva</td>
+                                                <td class="p-2.5">Memberikan sifat/kondisi rinci</td>
+                                                <td class="p-2.5 text-teal-300">Meja kayu jati yang dipelitur mengilap</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-2.5 font-semibold">Kata Kerja Relasional</td>
+                                                <td class="p-2.5">Menghubungkan subjek dengan pelengkap</td>
+                                                <td class="p-2.5 text-teal-300">terdiri atas, memiliki, merupakan</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-2.5 font-semibold">Verba Pencerapan Indra</td>
+                                                <td class="p-2.5">Merangsang persepsi pancaindra</td>
+                                                <td class="p-2.5 text-teal-300">terlihat melengkung, terdengar gemuruh</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-2.5 font-semibold">Keterangan Tempat & Cara</td>
+                                                <td class="p-2.5">Memperjelas posisi spasial</td>
+                                                <td class="p-2.5 text-teal-300">di sudut utara, secara membujur</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-2.5 font-semibold">Majas / Kiasan</td>
+                                                <td class="p-2.5">Citraan visual hidup pada deskripsi subjektif</td>
+                                                <td class="p-2.5 text-teal-300">"Angin malam menyapu wajah..."</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-80 aspect-video rounded-xl overflow-hidden border border-teal-500/30 flex-shrink-0 bg-black">
+                                <iframe class="w-full h-full" src="https://www.youtube.com/embed/cAqkMJyiJmE" title="Video 4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             </div>
                         </div>
-                        <div class="lg:col-span-5">
-                            <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black border border-teal-500/30 shadow-lg">
-                                <iframe class="w-full h-full" src="https://www.youtube.com/embed/RUgCoxZx3gY" title="Video Materi 5" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+
+                    <!-- SUB-BAB 5 -->
+                    <div class="glass-card p-5 sm:p-6 rounded-2xl border border-teal-500/20 space-y-4">
+                        <div class="flex flex-col lg:flex-row gap-6 items-start">
+                            <div class="flex-grow space-y-3">
+                                <h3 class="text-base sm:text-lg font-bold text-teal-300 flex items-center gap-2">
+                                    <span class="w-7 h-7 rounded-xl bg-teal-500/20 text-teal-300 flex items-center justify-center text-xs">5</span>
+                                    Contoh Komprehensif dan Analisis Linguistik Teks
+                                </h3>
+                                <div class="bg-emerald-950/80 p-4 rounded-xl border border-teal-800 text-xs text-emerald-100 space-y-2">
+                                    <p class="font-bold text-amber-300">Judul: Kawasan Konservasi Mangrove Mangunharjo</p>
+                                    <p><strong>[IDENTIFIKASI]</strong><br>Kawasan Konservasi Mangrove Mangunharjo merupakan area hutan bakau seluas 50 hektar yang terletak di pesisir utara Semarang. Area ini berfungsi sebagai benteng ekologis alami yang melindungi garis pantai dari abrasi sekaligus menjadi habitat beragam biota laut dan burung migran.</p>
+                                    <p><strong>[DESKRIPSI BAGIAN]</strong><br>Mengandalkan ekosistem khas pesisir, kawasan ini didominasi oleh spesies bakau <em>Rhizophora mucronata</em> yang memiliki akar tunjang mencengkeram erat ke dalam lumpur hitam pekat. Jalur penjelajahan berupa jembatan kayu ulin selebar 1,5 meter terbentang membelah rimbunnya dedaunan hijau tua yang saling bertumpukan. Udara di dalam kawasan terasa lembap dengan aroma khas garam dan sedimen tanah asin. Di sepanjang jalur, sayup-sayup terdengar kepakan sayap burung blekok serta derik serangga bakau yang saling bersahutan di antara selaksa dahan.</p>
+                                    <p><strong>[SIMPULAN]</strong><br>Keberadaan Kawasan Konservasi Mangrove Mangunharjo tidak hanya menjadi peredam gempuran gelombang laut, tetapi juga menyajikan keharmonisan antara vegetasi pesisir dan satwa liar yang patut dijaga kelestariannya.</p>
+                                </div>
+                                <div class="bg-emerald-950/60 p-3.5 rounded-xl border border-teal-900 text-xs text-emerald-200">
+                                    <strong class="text-teal-300 block mb-1">Analisis Bedah Unsur Teks:</strong>
+                                    <ul class="list-disc list-inside space-y-1 pl-1">
+                                        <li><strong>Pencerapan Visual:</strong> "dedaunan hijau tua yang saling bertumpukan", "gardu pandang kayu beratap jerami".</li>
+                                        <li><strong>Pencerapan Auditif:</strong> "terdengar kepakan sayap burung blekok", "derik serangga bakau".</li>
+                                        <li><strong>Pencerapan Olfaktori & Taktil:</strong> "aroma khas garam dan sedimen tanah asin", "Udara... terasa lembap".</li>
+                                        <li><strong>Penciri Spasial:</strong> "di pesisir utara", "di sepanjang jalur", "di antara selaksa dahan".</li>
+                                    </ul>
+                                </div>
                             </div>
-                            <span class="text-[10px] text-teal-300/80 text-center block mt-1.5">Video Pendukung: Analisis Teks Observasi</span>
+                            <div class="w-full lg:w-80 aspect-video rounded-xl overflow-hidden border border-teal-500/30 flex-shrink-0 bg-black">
+                                <iframe class="w-full h-full" src="https://www.youtube.com/embed/RUgCoxZx3gY" title="Video 5" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
                         </div>
                     </div>
 
                 </div>
             </div>
 
-            <!-- TAB CONTENT 2: PEMUTAR VIDEO UTAMA -->
+            <!-- TAB CONTENT 2: VIDEO INTERAKTIF YOUTUBE -->
             <div id="tabcontent-video" class="hidden space-y-6">
                 <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-teal-500/30 space-y-6">
                     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-teal-800 pb-4">
                         <div>
                             <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Multimedia Pembelajaran</span>
-                            <h2 class="text-xl sm:text-2xl font-extrabold text-white mt-1">Pemutar Video YouTube Interaktif Utama</h2>
+                            <h2 class="text-xl sm:text-2xl font-extrabold text-white mt-1">Video Pembelajaran YouTube Interaktif</h2>
                         </div>
                         <div class="flex items-center gap-2">
                             <input type="text" id="youtube-url-input" placeholder="Masukkan URL / Embed YouTube..." class="bg-emerald-950/80 border border-teal-500/30 rounded-xl px-3 py-2 text-xs text-white w-64 focus:outline-none focus:border-teal-400">
@@ -353,18 +425,16 @@
                     <!-- Preset Video Selectors -->
                     <div class="flex flex-wrap gap-2">
                         <button onclick="setPresetVideo('https://www.youtube.com/embed/RUgCoxZx3gY')" class="px-3.5 py-2 rounded-xl bg-teal-950/80 border border-teal-500/40 text-teal-300 text-xs font-semibold hover:bg-teal-900 transition flex items-center gap-2">
-                            <i data-lucide="play-circle" class="w-4 h-4 text-amber-400"></i>
-                            <span>Video 1: Pengertian & Tujuan Teks Deskripsi</span>
+                            <i data-lucide="play-circle" class="w-4 h-4"></i> Video 1: Pengantar Teks Deskripsi
                         </button>
                         <button onclick="setPresetVideo('https://www.youtube.com/embed/cAqkMJyiJmE')" class="px-3.5 py-2 rounded-xl bg-teal-950/80 border border-teal-500/40 text-teal-300 text-xs font-semibold hover:bg-teal-900 transition flex items-center gap-2">
-                            <i data-lucide="play-circle" class="w-4 h-4 text-amber-400"></i>
-                            <span>Video 2: Klasifikasi & Struktur Teks Deskripsi</span>
+                            <i data-lucide="play-circle" class="w-4 h-4"></i> Video 2: Analisis Struktur & Kebahasaan
                         </button>
                     </div>
 
                     <!-- YouTube Embed Wrapper -->
                     <div class="relative w-full aspect-video rounded-2xl overflow-hidden bg-black border border-teal-500/40 shadow-2xl">
-                        <iframe id="youtube-iframe" class="w-full h-full" src="https://www.youtube.com/embed/RUgCoxZx3gY?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe id="youtube-iframe" class="w-full h-full" src="https://www.youtube.com/embed/RUgCoxZx3gY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
 
                     <div class="bg-emerald-950/80 p-4 rounded-2xl border border-teal-800 flex items-center justify-between text-xs text-emerald-200">
@@ -430,58 +500,55 @@
         </div>
     </div>
 
-    <!-- ADMIN PANEL & CRUD MODAL -->
+    <!-- ADMIN PANEL & EXPORT MODAL -->
     <div id="admin-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="glass-panel p-6 sm:p-8 rounded-3xl max-w-5xl w-full border border-teal-500/40 text-white shadow-2xl max-h-[90vh] flex flex-col">
+        <div class="glass-panel p-6 sm:p-8 rounded-3xl max-w-4xl w-full border border-teal-500/40 text-white shadow-2xl max-h-[90vh] flex flex-col">
             <div class="flex items-center justify-between border-b border-teal-800 pb-4 mb-4">
                 <h3 class="text-lg font-bold text-teal-300 flex items-center gap-2">
                     <i data-lucide="shield-alert" class="w-5 h-5 text-amber-400"></i>
-                    Panel Admin — Manajemen Data Peserta Didik (CRUD)
+                    Panel Admin & Rekapitulasi Data Peserta
                 </h3>
                 <button onclick="closeAdminModal()" class="text-emerald-400 hover:text-white">
                     <i data-lucide="x" class="w-6 h-6"></i>
                 </button>
             </div>
             
-            <div id="admin-login-box" class="space-y-4 max-w-md mx-auto py-8">
-                <p class="text-xs text-emerald-200 text-center">Masukkan sandi admin untuk mengakses panel manajemen peserta.</p>
+            <div id="admin-login-box" class="space-y-4 py-4">
+                <p class="text-xs text-emerald-200">Masukkan sandi admin untuk mengakses data seluruh peserta (Pre-Test & Post-Test).</p>
                 <div>
                     <label class="block text-xs font-semibold text-emerald-200 mb-1">Sandi Admin:</label>
                     <input type="password" id="admin-pass" placeholder="••••••••" class="w-full bg-emerald-900/40 border border-teal-500/30 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-teal-400">
                 </div>
-                <div id="admin-login-error" class="text-xs text-red-400 hidden text-center">Sandi salah! Gunakan sandi: <code class="bg-black/40 px-1.5 py-0.5 rounded text-amber-300">admin123</code></div>
+                <div id="admin-login-error" class="text-xs text-red-400 hidden">Sandi salah! Gunakan sandi: <code class="bg-black/40 px-1 py-0.5 rounded text-amber-300">admin123</code></div>
                 <button onclick="verifyAdmin()" class="w-full py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 font-bold text-xs transition">
                     Login Admin
                 </button>
             </div>
 
             <div id="admin-panel-box" class="hidden space-y-4 flex-grow flex flex-col overflow-hidden">
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-emerald-950/80 p-4 rounded-2xl border border-teal-800">
-                    <div class="text-xs space-y-1">
-                        <p class="text-teal-300 font-bold">Autentikasi Berhasil (Akses CRUD Aktif)</p>
-                        <p class="text-emerald-100">Kelola data murid terdaftar, pantau nilai pre-test & post-test, hapus data, atau unduh rekap spreadsheet.</p>
-                    </div>
-                    <button onclick="downloadCSVSpreadsheet()" class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs transition flex items-center gap-2 shadow-lg shrink-0">
+                <div class="flex justify-between items-center gap-4">
+                    <p class="text-xs text-emerald-200">Daftar seluruh siswa yang telah terdaftar dan mengerjakan evaluasi di dalam database Firebase.</p>
+                    <button onclick="downloadCSVSpreadsheet()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs transition flex items-center gap-2 shadow-lg flex-shrink-0">
                         <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
                         <span>Download Spreadsheet (.CSV)</span>
                     </button>
                 </div>
-
-                <div class="overflow-y-auto flex-grow border border-teal-800/60 rounded-2xl">
+                
+                <div class="overflow-y-auto flex-grow rounded-xl border border-teal-800 bg-emerald-950/60 p-2">
                     <table class="w-full text-left text-xs text-emerald-100 border-collapse">
-                        <thead class="bg-emerald-950/90 text-teal-300 uppercase sticky top-0 border-b border-teal-800">
-                            <tr>
-                                <th class="p-3">Tanggal / Waktu</th>
-                                <th class="p-3">Nama Lengkap</th>
+                        <thead>
+                            <tr class="border-b border-teal-800 text-teal-300 bg-emerald-900/40">
+                                <th class="p-3">Tanggal</th>
+                                <th class="p-3">Nama</th>
                                 <th class="p-3">NIM / NIS</th>
                                 <th class="p-3">Kelas</th>
                                 <th class="p-3 text-center">Pre-Test</th>
                                 <th class="p-3 text-center">Post-Test</th>
-                                <th class="p-3 text-center">Aksi (Hapus)</th>
+                                <th class="p-3 text-center">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody id="admin-table-body" class="divide-y divide-teal-900/60 bg-emerald-950/40">
-                            <!-- Populated via Firestore -->
+                        <tbody id="admin-table-body" class="divide-y divide-teal-900/60">
+                            <!-- Populated dynamically -->
                         </tbody>
                     </table>
                 </div>
@@ -489,7 +556,7 @@
         </div>
     </div>
 
-    <!-- NOTIFICATION TOAST BOX -->
+    <!-- Notification Toast Box -->
     <div id="toast-box" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-emerald-900 border border-teal-400 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs sm:text-sm">
         <i data-lucide="check-circle-2" class="w-5 h-5 text-amber-400"></i>
         <span id="toast-text">Berhasil disimpan!</span>
@@ -500,20 +567,19 @@
         <p>© 2026 Modul Interaktif Bahasa Indonesia SMP — Teks Deskripsi Berbasis Cloud Database</p>
     </footer>
 
-    <!-- JAVASCRIPT APPLICATION LOGIC & FIREBASE INTEGRATION -->
+    <!-- JavaScript Application Logic & Firebase Integration -->
     <script>
         // Initialize Lucide Icons
         lucide.createIcons();
 
-        // Firebase Configuration & Initialization (Project Bu Ria)
+        // Firebase Configuration & Initialization
         const firebaseConfig = {
             apiKey: "AIzaSyC0LM3tc_x3dJuyNJlOS0V2BNFiLjgyVaY",
             authDomain: "project-bu-ria-f1ec2.firebaseapp.com",
             projectId: "project-bu-ria-f1ec2",
             storageBucket: "project-bu-ria-f1ec2.firebasestorage.app",
             messagingSenderId: "493584914070",
-            appId: "1:493584914070:web:19f706eee31fb8f38594b7",
-            measurementId: "G-G93V3DQH3M"
+            appId: "1:493584914070:web:19f706eee31fb8f38594b7"
         };
         
         let db = null;
@@ -534,14 +600,15 @@
             pretestAnswers: {},
             pretestScore: 0,
             posttestAnswers: {},
-            posttestScore: 0
+            posttestScore: 0,
+            timestamp: null
         };
 
         let currentPreTestIdx = 0;
         let currentPostTestIdx = 0;
         let isPostTestFinished = false;
 
-        // 10 Soal Pre-Test & Post-Test Database (Pilihan Ganda Teks Deskripsi SMP)
+        // 10 Soal Pre-Test & Post-Test Database
         const quizQuestions = [
             {
                 q: "Apa tujuan utama dari teks deskripsi?",
@@ -566,9 +633,9 @@
             {
                 q: "Dalam struktur teks deskripsi SMP, bagian yang berisi pengenalan nama objek, lokasi, atau gambaran umum disebut...",
                 options: [
-                    "A. Identifikasi / Klasifikasi",
+                    "A. Identifikasi / Gambaran Umum",
                     "B. Deskripsi Bagian",
-                    "C. Simpulan / Kesan",
+                    "C. Penutup / Kesimpulan",
                     "D. Orientasi"
                 ],
                 answer: 0
@@ -645,7 +712,7 @@
             }
         ];
 
-        // --- CRUD READ / CHECK NIM ON START ---
+        // --- VALIDATION & SESSION LOGIC (CHECK NIM IN FIREBASE) ---
         async function checkAndStartSession() {
             const name = document.getElementById('input-name').value.trim();
             const nim = document.getElementById('input-nim').value.trim();
@@ -661,7 +728,6 @@
             studentSession.nim = nim;
             studentSession.classRoom = cls;
 
-            // Check Firebase if NIM already exists (Read)
             let existingData = null;
             if (db) {
                 try {
@@ -670,22 +736,33 @@
                         existingData = docRef.data();
                     }
                 } catch(e) {
-                    console.error("Error reading student data:", e);
+                    console.error("Error checking existing NIM:", e);
                 }
             }
 
             if (existingData) {
-                // If already registered, load existing scores and jump straight to main material
+                // NIM sudah terdaftar, langsung masuk ke tampilan materi utama
                 studentSession.pretestScore = existingData.pretestScore || 0;
                 studentSession.posttestScore = existingData.posttestScore || 0;
                 enterMainStage();
-                showToast(`Selamat datang kembali, ${name}! NIM terdaftar, langsung masuk ke materi.`);
+                showToast(`Selamat datang kembali, ${name}! Data Anda ditemukan.`);
             } else {
-                // If new, start Pre-Test (Create)
+                // NIM baru, mulai Pre-Test
                 document.getElementById('reg-form-box').classList.add('hidden');
                 document.getElementById('pretest-quiz-box').classList.remove('hidden');
                 renderPreTestQuestion();
             }
+        }
+
+        function enterMainStage() {
+            document.getElementById('stage-pretest').classList.add('hidden');
+            document.getElementById('stage-main').classList.remove('hidden');
+            document.getElementById('student-badge-container').style.display = 'flex';
+            document.getElementById('nav-student-info').innerText = `${studentSession.name} (${studentSession.classRoom})`;
+            document.getElementById('welcome-student-name').innerText = `Halo, ${studentSession.name}!`;
+            document.getElementById('welcome-student-meta').innerText = `NIM/NIS: ${studentSession.nim} | Kelas: ${studentSession.classRoom}`;
+            document.getElementById('display-pretest-score').innerText = `${studentSession.pretestScore} / 100`;
+            lucide.createIcons();
         }
 
         function renderPreTestQuestion() {
@@ -747,22 +824,11 @@
                 if (studentSession.pretestAnswers[idx] === q.answer) correct++;
             });
             studentSession.pretestScore = correct * 10;
+            studentSession.timestamp = new Date().toISOString();
 
-            // Save (Create/Update) to Firestore Database
             saveSessionToFirebase();
             enterMainStage();
             showToast("Pre-Test selesai! Menu materi dan video interaktif kini terbuka.");
-        }
-
-        function enterMainStage() {
-            document.getElementById('stage-pretest').classList.add('hidden');
-            document.getElementById('stage-main').classList.remove('hidden');
-            document.getElementById('student-badge-container').style.display = 'flex';
-            document.getElementById('nav-student-info').innerText = `${studentSession.name} (${studentSession.classRoom})`;
-            document.getElementById('welcome-student-name').innerText = `Halo, ${studentSession.name}!`;
-            document.getElementById('welcome-student-meta').innerText = `NIM/NIS: ${studentSession.nim} | Kelas: ${studentSession.classRoom}`;
-            document.getElementById('display-pretest-score').innerText = `${studentSession.pretestScore} / 100`;
-            switchTab('materi');
         }
 
         // --- NAVIGATION TABS ---
@@ -814,7 +880,7 @@
             showToast("Link YouTube berhasil disalin ke clipboard!");
         }
 
-        // --- POST-TEST & RETRY LOGIC ---
+        // --- POST-TEST LOGIC ---
         function renderPostTestQuestion() {
             isPostTestFinished = false;
             document.getElementById('posttest-header-box').style.display = 'flex';
@@ -880,8 +946,8 @@
             });
             studentSession.posttestScore = correct * 10;
             isPostTestFinished = true;
+            studentSession.timestamp = new Date().toISOString();
 
-            // Save / Update (CRUD Update) to Firebase Database
             saveSessionToFirebase();
             showToast(`Post-Test selesai! Skor Anda: ${studentSession.posttestScore} / 100`);
 
@@ -909,7 +975,7 @@
                         </button>
                         <button onclick="restartPostTest()" class="w-full py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-teal-300 border border-teal-500/30 font-bold text-xs transition flex items-center justify-center gap-2 shadow-lg">
                             <i data-lucide="rotate-cw" class="w-4 h-4"></i>
-                            <span>Perbaiki Nilai Post-Test</span>
+                            <span>Ulangi Post-Test</span>
                         </button>
                         <button onclick="openLeaderboard()" class="w-full py-3 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs transition flex items-center justify-center gap-2 shadow-lg">
                             <i data-lucide="trophy" class="w-4 h-4"></i>
@@ -925,10 +991,10 @@
             studentSession.posttestAnswers = {};
             currentPostTestIdx = 0;
             renderPostTestQuestion();
-            showToast("Silakan mulai ulang Post-Test untuk memperbaiki nilai Anda!");
+            showToast("Silakan mulai ulang Post-Test!");
         }
 
-        // --- FIREBASE DATABASE CRUD (Create / Update) ---
+        // --- FIREBASE DATABASE SYNC (CRUD) ---
         function saveSessionToFirebase() {
             if (!db) return;
             try {
@@ -938,10 +1004,24 @@
                     classRoom: studentSession.classRoom,
                     pretestScore: studentSession.pretestScore,
                     posttestScore: studentSession.posttestScore,
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                    timestamp: studentSession.timestamp || new Date().toISOString()
                 }, { merge: true }).catch(err => console.error("Firebase write error:", err));
             } catch(e) {
                 console.error("Firestore sync exception:", e);
+            }
+        }
+
+        async function deleteStudentRecord(nim) {
+            if (!confirm(`Apakah Anda yakin ingin menghapus data siswa dengan NIM/NIS ${nim}?`)) return;
+            if (db) {
+                try {
+                    await db.collection("student_results").doc(nim).delete();
+                    showToast(`Data siswa ${nim} berhasil dihapus.`);
+                    loadAdminTable();
+                } catch(e) {
+                    console.error("Error deleting document:", e);
+                    showToast("Gagal menghapus data.");
+                }
             }
         }
 
@@ -1008,7 +1088,7 @@
             document.getElementById('leaderboard-modal').classList.add('hidden');
         }
 
-        // --- ADMIN PANEL, CRUD READ & DELETE ---
+        // --- ADMIN PANEL & TABLE CRUD ---
         function openAdminModal() {
             document.getElementById('admin-modal').classList.remove('hidden');
             document.getElementById('admin-pass').value = '';
@@ -1021,62 +1101,57 @@
             document.getElementById('admin-modal').classList.add('hidden');
         }
 
-        function verifyAdmin() {
+        async function verifyAdmin() {
             const pass = document.getElementById('admin-pass').value.trim();
             if (pass === "admin123") {
                 document.getElementById('admin-login-box').classList.add('hidden');
                 document.getElementById('admin-panel-box').classList.remove('hidden');
-                loadAdminTableData();
                 showToast("Login Admin Berhasil!");
+                await loadAdminTable();
             } else {
                 document.getElementById('admin-login-error').classList.remove('hidden');
             }
         }
 
-        async function loadAdminTableData() {
+        async function loadAdminTable() {
             const tbody = document.getElementById('admin-table-body');
-            tbody.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-emerald-300">Memuat data peserta dari database...</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-emerald-300">Memuat data peserta...</td></tr>`;
 
             let participants = [];
             if (db) {
                 try {
                     const snapshot = await db.collection("student_results").get();
                     snapshot.forEach(doc => {
-                        let data = doc.data();
-                        data.docId = doc.id;
-                        participants.push(data);
+                        participants.push(doc.data());
                     });
                 } catch(e) {
-                    console.error("Error fetching admin table:", e);
+                    console.error("Error reading admin table:", e);
                 }
             }
 
+            if (!participants.some(p => p.nim === studentSession.nim) && studentSession.name) {
+                participants.push(studentSession);
+            }
+
             if (participants.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-emerald-300">Belum ada data peserta di database.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-emerald-300">Belum ada data peserta.</td></tr>`;
                 return;
             }
 
             let html = ``;
             participants.forEach(p => {
-                let dateStr = "-";
-                if (p.timestamp && p.timestamp.toDate) {
-                    dateStr = p.timestamp.toDate().toLocaleString('id-ID');
-                } else {
-                    dateStr = "Baru saja";
-                }
-
+                const formattedDate = p.timestamp ? new Date(p.timestamp).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' }) : '-';
                 html += `
                     <tr class="hover:bg-emerald-900/30 transition">
-                        <td class="p-3 text-emerald-200">${dateStr}</td>
-                        <td class="p-3 font-bold text-white">${p.name || '-'}</td>
-                        <td class="p-3 text-teal-300">${p.nim || '-'}</td>
-                        <td class="p-3 text-emerald-200">${p.classRoom || '-'}</td>
-                        <td class="p-3 text-center font-bold text-teal-400">${p.pretestScore !== undefined ? p.pretestScore : 0}</td>
-                        <td class="p-3 text-center font-extrabold text-amber-400">${p.posttestScore !== undefined ? p.posttestScore : 0}</td>
+                        <td class="p-3 font-mono text-[11px] text-emerald-200">${formattedDate}</td>
+                        <td class="p-3 font-bold text-white">${p.name}</td>
+                        <td class="p-3 font-mono text-teal-300">${p.nim}</td>
+                        <td class="p-3">${p.classRoom}</td>
+                        <td class="p-3 text-center font-bold text-teal-300">${p.pretestScore || 0}</td>
+                        <td class="p-3 text-center font-extrabold text-amber-400">${p.posttestScore || 0}</td>
                         <td class="p-3 text-center">
-                            <button onclick="deleteStudentData('${p.nim || p.docId}')" class="px-2.5 py-1 rounded-lg bg-red-500/20 hover:bg-red-500 text-red-300 hover:text-white border border-red-500/40 text-[10px] font-bold transition flex items-center gap-1 mx-auto">
-                                <i data-lucide="trash-2" class="w-3 h-3"></i>
-                                <span>Hapus</span>
+                            <button onclick="deleteStudentRecord('${p.nim}')" class="px-2.5 py-1 rounded-lg bg-red-500/20 hover:bg-red-500/40 text-red-300 border border-red-500/30 text-[11px] font-semibold transition flex items-center justify-center gap-1 mx-auto">
+                                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Hapus
                             </button>
                         </td>
                     </tr>
@@ -1086,23 +1161,6 @@
             lucide.createIcons();
         }
 
-        // CRUD Delete Student Data
-        async function deleteStudentData(nimId) {
-            if (!confirm(`Apakah Anda yakin ingin menghapus data murid dengan NIM/NIS: ${nimId}?`)) return;
-
-            if (db) {
-                try {
-                    await db.collection("student_results").doc(nimId).delete();
-                    showToast("Data murid berhasil dihapus dari database!");
-                    loadAdminTableData();
-                } catch(e) {
-                    console.error("Error deleting student:", e);
-                    showToast("Gagal menghapus data!");
-                }
-            }
-        }
-
-        // --- EXPORT SPREADSHEET CSV ---
         async function downloadCSVSpreadsheet() {
             let participants = [];
             if (db) {
@@ -1115,6 +1173,9 @@
                     console.error("Error fetching for CSV:", e);
                 }
             }
+            if (!participants.some(p => p.nim === studentSession.nim) && studentSession.name) {
+                participants.push(studentSession);
+            }
 
             if (participants.length === 0) {
                 showToast("Tidak ada data peserta untuk diunduh.");
@@ -1123,11 +1184,8 @@
 
             let csvContent = "data:text/csv;charset=utf-8,Tanggal,Nama,NIM_NIS,Kelas,Skor_PreTest,Skor_PostTest\n";
             participants.forEach(p => {
-                let dt = "-";
-                if (p.timestamp && p.timestamp.toDate) {
-                    dt = p.timestamp.toDate().toLocaleString('id-ID');
-                }
-                csvContent += `"${dt}","${p.name}","${p.nim}","${p.classRoom}",${p.pretestScore || 0},${p.posttestScore || 0}\n`;
+                const dateStr = p.timestamp ? new Date(p.timestamp).toISOString() : '-';
+                csvContent += `"${dateStr}","${p.name}","${p.nim}","${p.classRoom}",${p.pretestScore || 0},${p.posttestScore || 0}\n`;
             });
 
             const encodedUri = encodeURI(csvContent);
